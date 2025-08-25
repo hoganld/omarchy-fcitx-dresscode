@@ -1,4 +1,4 @@
-# Omarchy FCITX5 Themes
+# めかし屋
 
 I love Omarchy. I love Fcitx5 less, but I need it every time I want to type in Japanese.
 
