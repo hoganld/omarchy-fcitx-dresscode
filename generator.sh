@@ -6,18 +6,30 @@ if [[ -z "$THEME_NAME" ]]; then
 	THEME_NAME=$(gum input --placeholder "Theme name?")
 fi
 
-THEME_PATH="themes/${THEME_NAME}"
+TEMPLATE_PATH="templates"
+if [[ ! -d "$TEMPLATE_PATH" ]]; then
+	echo "Where is your template directory?"
+	TEMPLATE_PATH=$(gum input --placeholder "~/path/to/templates")
+fi
 
 # check for templates, abort if not found
-if [[ ! -f "templates/theme.conf" ]] || [[ ! -f "templates/arrow.svg" ]] || [[ ! -f "templates/radio.svg" ]]; then
+if [[ ! -f "$TEMPLATE_PATH/theme.conf" ]] || [[ ! -f "$TEMPLATE_PATH/arrow.svg" ]] || [[ ! -f "$TEMPLATE_PATH/radio.svg" ]]; then
 	echo "Error: template files not found. Aborting."
 	exit 1
 fi
 
+THEMES_DIR="themes"
+if [[ ! -d "$THEMES_DIR" ]]; then
+	echo "Where do you want your new theme created?"
+	THEMES_DIR=$(gum input --placeholder "~/path/to/themes")
+fi
+
+THEME_PATH="$THEMES_DIR/$THEME_NAME"
+
 # check for pre-existing theme files, abort if found
 if [[ -f "$THEME_PATH/theme.conf" ]] || [[ -f "$THEME_PATH/arrow.png" ]] || [[ -f "$THEME_PATH/radio.png" ]]; then
-	echo "Error: $THEME_NAME files already exist. Aborting."
-	exit 1 
+	echo "Warning: $THEME_NAME files already exist."
+	gum confirm && rm "$THEME_PATH/theme.conf" "$THEME_PATH/arrow.png" "$THEME_PATH/radio.png" || exit 0
 fi
 
 # check for colors in environment, prompting for those not found, and validating format:
@@ -65,9 +77,9 @@ fi
 
 # substitute theme colors into templates and copy into theme dir
 # copy templates into theme dir
-cp "templates/theme.conf" "$THEME_PATH/theme.conf"
-cp "templates/arrow.svg" "$THEME_PATH/arrow.svg"
-cp "templates/radio.svg" "$THEME_PATH/radio.svg"
+cp "$TEMPLATE_PATH/theme.conf" "$THEME_PATH/theme.conf"
+cp "$TEMPLATE_PATH/arrow.svg" "$THEME_PATH/arrow.svg"
+cp "$TEMPLATE_PATH/radio.svg" "$THEME_PATH/radio.svg"
 
 # insert theme colors into theme.conf
 sed -i "s/COLOR_TEXT_PRIMARY/${COLOR_TEXT_PRIMARY}/g" "$THEME_PATH/theme.conf"
