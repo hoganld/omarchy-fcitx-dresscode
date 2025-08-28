@@ -18,13 +18,13 @@ The project is only a few days old, still in initial development. Here's what is
 
 1. A set of color themes for Fcitx to coordinate with each of the default themes that ship with Omarchy.
 
-2. A script to update the running Fcitx theme.
+2. Scripts to update the Fcitx theme and apply it to the running `fcitx5` process.
 
-3. A patch for Omarchy's `bin/omarchy-theme-set` script to call this new Fcitx theme update script, so that updating the theme from Omarchy's native utilities also updates Fcitx.
+3. A patch for Omarchy's `bin/omarchy-theme-set` script to call the Fcitx theme scripts, so that updating the theme from Omarchy's native utilities also updates Fcitx.
 
 4. Scripts to install the themes and patch the Omarchy update script.
 
-5. A script and a set of templates to facilitate the creation of new Fcitx themes, so you can add your own themes, and so I can keep up as DHH accepts new themes into Omarchy.
+5. A generator script and a set of templates to facilitate the creation of new Fcitx themes, so you can add your own themes, and so I can keep up as DHH accepts new themes into Omarchy.
 
 ## Attributions
 The Fcitx theme files in this project are based on the excellent collection provided by [Catppuccin Fcitx](https://github.com/catppuccin/fcitx5).
