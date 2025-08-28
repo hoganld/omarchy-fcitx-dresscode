@@ -26,7 +26,7 @@ fi
 
 THEME_PATH="$THEMES_DIR/$THEME_NAME"
 
-# check for pre-existing theme files, abort if found
+# check for pre-existing theme files, prompt for decision if found
 if [[ -f "$THEME_PATH/theme.conf" ]] || [[ -f "$THEME_PATH/arrow.png" ]] || [[ -f "$THEME_PATH/radio.png" ]]; then
 	echo "Warning: $THEME_NAME files already exist."
 	gum confirm && rm "$THEME_PATH/theme.conf" "$THEME_PATH/arrow.png" "$THEME_PATH/radio.png" || exit 0
@@ -69,7 +69,7 @@ while [[ ! "$COLOR_ICON" =~ $REGHEX ]]; do
 	COLOR_ICON=$(gum input --placeholder "#a3a3a3")
 done
 
-# create theme dir if needed (it can already exist, so long as it's empty)
+# create theme dir if needed
 echo "Generating theme ${THEME_NAME}"
 if [[ ! -d "$THEME_PATH" ]]; then
 	mkdir -p "$THEME_PATH"
