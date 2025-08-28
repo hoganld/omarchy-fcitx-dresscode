@@ -1,4 +1,4 @@
-# めかし屋
+# Omarchy Fcitx Dress Code
 
 I love Omarchy. I love Fcitx5 less, but I need it every time I want to type in Japanese.
 
