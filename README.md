@@ -42,7 +42,7 @@ Fcitx needs to know the name of the theme to use. It reads this from the `classi
 
 `Theme=current`
 
-The installer will offer to set this value for you automatically. If you decline (or if the script fails), you will need to edit the file manually.
+The installer will offer to set this value for you automatically. If you decline (or if the script fails), you will need to edit the file manually. (Or, you can later run the `configure.sh` script yourself, which is all the installer does anyway.)
 
 ### "current"?
 Like Omarchy itself, Dress Code works by changing the `current` symlink to point to the desired theme files. Thus, Dress Code does not need to touch your config each time you change themes. You just set the config once and forget it.
