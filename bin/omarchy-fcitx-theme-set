@@ -7,11 +7,10 @@ FCITX_CURRENT_THEME_DIR="$HOME/.local/share/fcitx5/themes/current"
 FCITX_FALLBACK_THEME_DIR="$HOME/.local/share/fcitx5/themes/fallback"
 FCITX_THEME_PATH="$FCITX_THEMES_DIR/$THEME_NAME"
 
-
 # If a matching fcitx5 theme exists, use it
 # Otherwise, set the default fcitx5 theme
 if [[ -d "$FCITX_THEME_PATH" ]]; then
-  ln -nsf "$FCITX_THEME_PATH" "$FCITX_CURRENT_THEME_DIR" 
+  ln -nsf "$FCITX_THEME_PATH" "$FCITX_CURRENT_THEME_DIR"
 else
   ln -nsf "$FCITX_FALLBACK_THEME_DIR" "$FCITX_CURRENT_THEME_DIR"
 fi

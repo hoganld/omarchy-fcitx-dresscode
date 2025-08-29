@@ -6,11 +6,11 @@ THEME_SETTER="$OMARCHY_PATH/bin/omarchy-theme-set"
 
 # Unlink the control scripts
 if [[ -f "$OMARCHY_PATH/bin/omarchy-fcitx-theme-set" ]]; then
-	rm "$OMARCHY_PATH/bin/omarchy-fcitx-theme-set"
+  rm "$OMARCHY_PATH/bin/omarchy-fcitx-theme-set"
 fi
 
 if [[ -f "$OMARCHY_PATH/bin/omarchy-restart-fcitx" ]]; then
-	rm "$OMARCHY_PATH/bin/omarchy-restart-fcitx"
+  rm "$OMARCHY_PATH/bin/omarchy-restart-fcitx"
 fi
 
 # Unpatch omarchy-theme-set
@@ -20,11 +20,11 @@ cd -
 
 # Unlink the theme files
 if [[ -d "$DRESSCODE_PATH/themes" ]]; then
-	cd "$DRESSCODE_PATH/themes"
-	for file in *; do
-		rm "$FCITX_PATH/$file"
-	done
-	cd -
+  cd "$DRESSCODE_PATH/themes"
+  for file in *; do
+    rm "$FCITX_PATH/$file"
+  done
+  cd -
 fi
 
 # Destroy the evidence

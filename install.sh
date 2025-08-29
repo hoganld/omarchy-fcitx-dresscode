@@ -20,7 +20,7 @@ ln -nsf "$DRESSCODE_PATH/bin/omarchy-restart-fcitx" "$OMARCHY_PATH/bin/omarchy-r
 # Link the themes where Fcitx will look for them
 cd "$DRESSCODE_PATH/themes"
 for file in *; do
-	ln -nsf "$DRESSCODE_PATH/themes/$file" "$FCITX_PATH/$file"
+  ln -nsf "$DRESSCODE_PATH/themes/$file" "$FCITX_PATH/$file"
 done
 cd -
 
@@ -28,16 +28,16 @@ cd -
 UPDATE_COMMENT='# Update Fcitx symlinks'
 UPDATE_COMMAND="omarchy-fcitx-theme-set \"\$THEME_NAME\""
 if ! grep -qF "$UPDATE_COMMAND" "$THEME_SETTER"; then
-	sed -i "/Change gnome modes/i\\$UPDATE_COMMENT\n$UPDATE_COMMAND\n" "$THEME_SETTER"
+  sed -i "/Change gnome modes/i\\$UPDATE_COMMENT\n$UPDATE_COMMAND\n" "$THEME_SETTER"
 fi
 
 RESTART_COMMAND="omarchy-restart-fcitx"
 if ! grep -qF "$RESTART_COMMAND" "$THEME_SETTER"; then
-	sed -i "/makoctl reload/i\\$RESTART_COMMAND" "$THEME_SETTER"
+  sed -i "/makoctl reload/i\\$RESTART_COMMAND" "$THEME_SETTER"
 fi
 
 echo "Successfully installed the Fcitx dress code."
 
 if gum confirm "Do you want to automatically update your Fcitx config?"; then
-	./configure.sh
+  ./configure.sh
 fi
