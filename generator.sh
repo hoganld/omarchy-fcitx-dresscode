@@ -1,5 +1,19 @@
 #!/bin/bash
 
+prompt_for_color () {
+	local REGHEX='^#[[:xdigit:]]{6}$'
+	local ERR_BAD_COLOR="Error: invalid color. Please use hex color format."
+	local COLOR=""
+
+	while [[ ! "$COLOR" =~ $REGHEX ]]; do
+		COLOR=$(gum input --prompt "$1" --placeholder "$2")
+		if [[ ! "$COLOR" =~ $REGHEX ]]; then
+			echo "$ERR_BAD_COLOR"
+		fi
+	done
+	echo "$COLOR"
+}
+
 THEME_NAME=$1
 
 if [[ -z "$THEME_NAME" ]]; then
@@ -32,53 +46,16 @@ if [[ -f "$THEME_PATH/theme.conf" ]] || [[ -f "$THEME_PATH/arrow.png" ]] || [[ -
 fi
 
 # Prompt for palette colors, validating format each time
-REGHEX='^#[[:xdigit:]]{6}$'
-ERR_BAD_COLOR="Error: invalid color. Please use hex color format."
+COLOR_TEXT_PRIMARY=$(prompt_for_color "Primary text color > " "#d4d4d4")
+COLOR_TEXT_SECONDARY=$(prompt_for_color "Secondary text color > " "#323232")
+COLOR_HIGHLIGHT_PRIMARY=$(prompt_for_color "Primary highlight color > " "#60a5fa")
+COLOR_HIGHLIGHT_SECONDARY=$(prompt_for_color "Secondary highlight color > " "#f87171")
+COLOR_BACKGROUND=$(prompt_for_color "Background color > " "#525252")
+COLOR_ICON=$(prompt_for_color "Icon color > " "#a3a3a3")
 
-while [[ ! "$COLOR_TEXT_PRIMARY" =~ $REGHEX ]]; do
-	COLOR_TEXT_PRIMARY=$(gum input --prompt "Primary text color > " --placeholder "#d4d4d4")
-	if [[ ! "$COLOR_TEXT_PRIMARY" =~ $REGHEX ]]; then
-		echo "$ERR_BAD_COLOR"
-	fi
-done
-
-while [[ ! "$COLOR_TEXT_SECONDARY" =~ $REGHEX ]]; do
-	COLOR_TEXT_SECONDARY=$(gum input --prompt "Secondary text color > " --placeholder "#323232")
-	if [[ ! "$COLOR_TEXT_SECONDARY" =~ $REGHEX ]]; then
-		echo "$ERR_BAD_COLOR"
-	fi
-done
-
-while [[ ! "$COLOR_HIGHLIGHT_PRIMARY" =~ $REGHEX ]]; do
-	COLOR_HIGHLIGHT_PRIMARY=$(gum input --prompt "Primary highlight color > " --placeholder "#60a5fa")
-	if [[ ! "$COLOR_HIGHLIGHT_PRIMARY" =~ $REGHEX ]]; then
-		echo "$ERR_BAD_COLOR"
-	fi
-done
-
-while [[ ! "$COLOR_HIGHLIGHT_SECONDARY" =~ $REGHEX ]]; do
-	COLOR_HIGHLIGHT_SECONDARY=$(gum input --prompt "Secondary highlight color > " --placeholder "#f87171")
-	if [[ ! "$COLOR_HIGHLIGHT_SECONDARY" =~ $REGHEX ]]; then
-		echo "$ERR_BAD_COLOR"
-	fi
-done
-
-while [[ ! "$COLOR_BACKGROUND" =~ $REGHEX ]]; do
-	COLOR_BACKGROUND=$(gum input --prompt "Background color > " --placeholder "#525252")
-	if [[ ! "$COLOR_BACKGROUND" =~ $REGHEX ]]; then
-		echo "$ERR_BAD_COLOR"
-	fi
-done
-
-while [[ ! "$COLOR_ICON" =~ $REGHEX ]]; do
-	COLOR_ICON=$(gum input --prompt "Icon color > " --placeholder "#a3a3a3")
-	if [[ ! "$COLOR_ICON" =~ $REGHEX ]]; then
-		echo "$ERR_BAD_COLOR"
-	fi
-done
+echo "Generating theme ${THEME_NAME}"
 
 # create theme dir if needed
-echo "Generating theme ${THEME_NAME}"
 if [[ ! -d "$THEME_PATH" ]]; then
 	mkdir -p "$THEME_PATH"
 fi
