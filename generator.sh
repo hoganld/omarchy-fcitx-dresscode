@@ -1,14 +1,44 @@
 #!/bin/bash
 
-prompt_for_color() {
+write-color-file() {
+  COLOR_FILE="$THEME_PATH/colors.sh"
+  echo "COLOR_TEXT_PRIMARY=${COLOR_TEXT_PRIMARY}" >"$COLOR_FILE"
+  echo "COLOR_TEXT_SECONDARY=${COLOR_TEXT_SECONDARY}" >>"$COLOR_FILE"
+  echo "COLOR_HIGHLIGHT_PRIMARY=${COLOR_HIGHLIGHT_PRIMARY}" >>"$COLOR_FILE"
+  echo "COLOR_HIGHLIGHT_SECONDARY=${COLOR_HIGHLIGHT_SECONDARY}" >>"$COLOR_FILE"
+  echo "COLOR_BACKGROUND=${COLOR_BACKGROUND}" >>"$COLOR_FILE"
+  echo "COLOR_ICON=${COLOR_ICON}" >>"$COLOR_FILE"
+}
+
+valid-color() {
   local REGHEX='^#[[:xdigit:]]{6}$'
+  if [[ "$1" =~ $REGHEX ]]; then
+    true
+  else
+    false
+  fi
+}
+
+get-color() {
+  local COLOR="$1"
+  local PROMPT="$2"
+
+  if valid-color "$COLOR" && gum confirm "Use $COLOR as $PROMPT?"; then
+    echo "$COLOR"
+  else
+    prompt-for-color "$PROMPT"
+  fi
+}
+
+prompt-for-color() {
   local ERR_BAD_COLOR="Error: invalid color. Please use hex color format."
   local COLOR=""
+  local PROMPT="$1"
 
-  while [[ ! "$COLOR" =~ $REGHEX ]]; do
-    COLOR=$(gum input --prompt "$1" --placeholder "$2")
-    if [[ ! "$COLOR" =~ $REGHEX ]]; then
-      echo "$ERR_BAD_COLOR"
+  while ! valid-color "$COLOR"; do
+    COLOR="#$(gum input --prompt "$PROMPT: #" --placeholder "7ab4fb" || exit 1)"
+    if ! valid-color "$COLOR"; then
+      echo "$ERR_BAD_COLOR" >&2
     fi
   done
   echo "$COLOR"
@@ -41,24 +71,27 @@ THEME_PATH="$THEMES_DIR/$THEME_NAME"
 
 # check for pre-existing theme files, prompt for decision if found
 if [[ -f "$THEME_PATH/theme.conf" ]] || [[ -f "$THEME_PATH/arrow.png" ]] || [[ -f "$THEME_PATH/radio.png" ]]; then
-  echo "Warning: $THEME_NAME files already exist."
-  gum confirm "Overwrite?" && rm "$THEME_PATH/theme.conf" "$THEME_PATH/arrow.png" "$THEME_PATH/radio.png" || exit 0
+  warning="Warning: $THEME_NAME files already exist. Overwrite?"
+  gum confirm "$warning" && rm "$THEME_PATH/theme.conf" "$THEME_PATH/arrow.png" "$THEME_PATH/radio.png" || exit 0
 fi
 
+# Reuse colors if available
+source "$THEME_PATH/colors.sh" >/dev/null 2>&1
+
 # Prompt for palette colors, validating format each time
-COLOR_TEXT_PRIMARY=$(prompt_for_color "Primary text color > " "#d4d4d4")
-COLOR_TEXT_SECONDARY=$(prompt_for_color "Secondary text color > " "#323232")
-COLOR_HIGHLIGHT_PRIMARY=$(prompt_for_color "Primary highlight color > " "#60a5fa")
-COLOR_HIGHLIGHT_SECONDARY=$(prompt_for_color "Secondary highlight color > " "#f87171")
-COLOR_BACKGROUND=$(prompt_for_color "Background color > " "#525252")
-COLOR_ICON=$(prompt_for_color "Icon color > " "#a3a3a3")
+COLOR_TEXT_PRIMARY=$(get-color "$COLOR_TEXT_PRIMARY" "Primary Text Color")
+COLOR_TEXT_SECONDARY=$(get-color "$COLOR_TEXT_SECONDARY" "Secondary Text Color")
+COLOR_HIGHLIGHT_PRIMARY=$(get-color "$COLOR_HIGHLIGHT_PRIMARY" "Primary Highlight Color")
+COLOR_HIGHLIGHT_SECONDARY=$(get-color "$COLOR_HIGHLIGHT_SECONDARY" "Secondary Highlight Color")
+COLOR_BACKGROUND=$(get-color "$COLOR_BACKGROUND" "Background Color")
+COLOR_ICON=$(get-color "$COLOR_ICON" "Icon Color")
 
 echo "Generating theme ${THEME_NAME}"
 
 # create theme dir if needed
-if [[ ! -d "$THEME_PATH" ]]; then
-  mkdir -p "$THEME_PATH"
-fi
+mkdir -p "$THEME_PATH"
+
+write-color-file
 
 # copy templates into theme dir
 cp "$TEMPLATE_PATH/theme.conf" "$THEME_PATH/theme.conf"
