@@ -3,13 +3,13 @@
 THEME_NAME=$1
 
 if [[ -z "$THEME_NAME" ]]; then
-	THEME_NAME=$(gum input --placeholder "Theme name?")
+	THEME_NAME=$(gum input --prompt "Theme name > " --placeholder "tokyo-night")
 fi
 
 TEMPLATE_PATH="templates"
 if [[ ! -d "$TEMPLATE_PATH" ]]; then
 	echo "Where is your template directory?"
-	TEMPLATE_PATH=$(gum input --placeholder "~/path/to/templates")
+	TEMPLATE_PATH=$(gum input --prompt "Your template directory > " --placeholder "~/path/to/templates")
 fi
 
 # check for templates, abort if not found
@@ -20,8 +20,7 @@ fi
 
 THEMES_DIR="themes"
 if [[ ! -d "$THEMES_DIR" ]]; then
-	echo "Where do you want your new theme created?"
-	THEMES_DIR=$(gum input --placeholder "~/path/to/themes")
+	THEMES_DIR=$(gum input --prompt "Your Fcitx themes directory > " --placeholder "~/path/to/fcitx/themes")
 fi
 
 THEME_PATH="$THEMES_DIR/$THEME_NAME"
@@ -29,44 +28,53 @@ THEME_PATH="$THEMES_DIR/$THEME_NAME"
 # check for pre-existing theme files, prompt for decision if found
 if [[ -f "$THEME_PATH/theme.conf" ]] || [[ -f "$THEME_PATH/arrow.png" ]] || [[ -f "$THEME_PATH/radio.png" ]]; then
 	echo "Warning: $THEME_NAME files already exist."
-	gum confirm && rm "$THEME_PATH/theme.conf" "$THEME_PATH/arrow.png" "$THEME_PATH/radio.png" || exit 0
+	gum confirm "Overwrite?" && rm "$THEME_PATH/theme.conf" "$THEME_PATH/arrow.png" "$THEME_PATH/radio.png" || exit 0
 fi
 
-# check for colors in environment, prompting for those not found, and validating format:
-if [[ -f "$THEME_PATH/colors.sh" ]]; then
-	source "$THEME_PATH/colors.sh"
-fi
-
+# Prompt for palette colors, validating format each time
 REGHEX='^#[[:xdigit:]]{6}$'
+ERR_BAD_COLOR="Error: invalid color. Please use hex color format."
 
 while [[ ! "$COLOR_TEXT_PRIMARY" =~ $REGHEX ]]; do
-	echo "Primary text color?"
-	COLOR_TEXT_PRIMARY=$(gum input --placeholder "#d4d4d4")
+	COLOR_TEXT_PRIMARY=$(gum input --prompt "Primary text color > " --placeholder "#d4d4d4")
+	if [[ ! "$COLOR_TEXT_PRIMARY" =~ $REGHEX ]]; then
+		echo "$ERR_BAD_COLOR"
+	fi
 done
 
 while [[ ! "$COLOR_TEXT_SECONDARY" =~ $REGHEX ]]; do
-	echo "Secondary text color?"
-	COLOR_TEXT_SECONDARY=$(gum input --placeholder "#323232")
+	COLOR_TEXT_SECONDARY=$(gum input --prompt "Secondary text color > " --placeholder "#323232")
+	if [[ ! "$COLOR_TEXT_SECONDARY" =~ $REGHEX ]]; then
+		echo "$ERR_BAD_COLOR"
+	fi
 done
 
 while [[ ! "$COLOR_HIGHLIGHT_PRIMARY" =~ $REGHEX ]]; do
-	echo "Primary highlight color?"
-	COLOR_HIGHLIGHT_PRIMARY=$(gum input --placeholder "#60a5fa")
+	COLOR_HIGHLIGHT_PRIMARY=$(gum input --prompt "Primary highlight color > " --placeholder "#60a5fa")
+	if [[ ! "$COLOR_HIGHLIGHT_PRIMARY" =~ $REGHEX ]]; then
+		echo "$ERR_BAD_COLOR"
+	fi
 done
 
 while [[ ! "$COLOR_HIGHLIGHT_SECONDARY" =~ $REGHEX ]]; do
-	echo "Secondaryhighlight color?"
-	COLOR_HIGHLIGHT_SECONDARY=$(gum input --placeholder "#f87171")
+	COLOR_HIGHLIGHT_SECONDARY=$(gum input --prompt "Secondary highlight color > " --placeholder "#f87171")
+	if [[ ! "$COLOR_HIGHLIGHT_SECONDARY" =~ $REGHEX ]]; then
+		echo "$ERR_BAD_COLOR"
+	fi
 done
 
 while [[ ! "$COLOR_BACKGROUND" =~ $REGHEX ]]; do
-	echo "Background color?"
-	COLOR_BACKGROUND=$(gum input --placeholder "#525252")
+	COLOR_BACKGROUND=$(gum input --prompt "Background color > " --placeholder "#525252")
+	if [[ ! "$COLOR_BACKGROUND" =~ $REGHEX ]]; then
+		echo "$ERR_BAD_COLOR"
+	fi
 done
 
 while [[ ! "$COLOR_ICON" =~ $REGHEX ]]; do
-	echo "Icon color?"
-	COLOR_ICON=$(gum input --placeholder "#a3a3a3")
+	COLOR_ICON=$(gum input --prompt "Icon color > " --placeholder "#a3a3a3")
+	if [[ ! "$COLOR_ICON" =~ $REGHEX ]]; then
+		echo "$ERR_BAD_COLOR"
+	fi
 done
 
 # create theme dir if needed
@@ -75,9 +83,9 @@ if [[ ! -d "$THEME_PATH" ]]; then
 	mkdir -p "$THEME_PATH"
 fi
 
-# substitute theme colors into templates and copy into theme dir
 # copy templates into theme dir
 cp "$TEMPLATE_PATH/theme.conf" "$THEME_PATH/theme.conf"
+cp "$TEMPLATE_PATH/preview.html" "$THEME_PATH/preview.html"
 cp "$TEMPLATE_PATH/arrow.svg" "$THEME_PATH/arrow.svg"
 cp "$TEMPLATE_PATH/radio.svg" "$THEME_PATH/radio.svg"
 
@@ -87,6 +95,15 @@ sed -i "s/COLOR_TEXT_SECONDARY/${COLOR_TEXT_SECONDARY}/g" "$THEME_PATH/theme.con
 sed -i "s/COLOR_HIGHLIGHT_PRIMARY/${COLOR_HIGHLIGHT_PRIMARY}/g" "$THEME_PATH/theme.conf"
 sed -i "s/COLOR_HIGHLIGHT_SECONDARY/${COLOR_HIGHLIGHT_SECONDARY}/g" "$THEME_PATH/theme.conf"
 sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/theme.conf"
+
+## insert theme colors into preview.html
+sed -i "s/THEME_NAME/${THEME_NAME}/g" "$THEME_PATH/preview.html"
+sed -i "s/COLOR_TEXT_PRIMARY/${COLOR_TEXT_PRIMARY}/g" "$THEME_PATH/preview.html"
+sed -i "s/COLOR_TEXT_SECONDARY/${COLOR_TEXT_SECONDARY}/g" "$THEME_PATH/preview.html"
+sed -i "s/COLOR_HIGHLIGHT_PRIMARY/${COLOR_HIGHLIGHT_PRIMARY}/g" "$THEME_PATH/preview.html"
+sed -i "s/COLOR_HIGHLIGHT_SECONDARY/${COLOR_HIGHLIGHT_SECONDARY}/g" "$THEME_PATH/preview.html"
+sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/preview.html"
+sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/preview.html"
 
 # insert theme colors into SVGs
 sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/arrow.svg"
