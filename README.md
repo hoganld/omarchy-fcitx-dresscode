@@ -29,6 +29,8 @@ The project is only a few days old, still in initial development. Here's what is
 ## Attributions
 The Fcitx theme files in this project are based on the excellent collection provided by [Catppuccin Fcitx](https://github.com/catppuccin/fcitx5).
 
+And of course, a big thank-you to David Heinemeier Hansson for Omarchy.
+
 ## License
 
 MIT. Do what you want.
