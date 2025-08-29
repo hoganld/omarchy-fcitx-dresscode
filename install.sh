@@ -2,6 +2,7 @@
 
 DRESSCODE_PATH="${FCITX_DRESSCODE_PATH:-$HOME/.local/share/fcitx-dresscode}"
 FCITX_PATH="${FCITX_ROOT:-$HOME/.local/share/fcitx5}/themes"
+# FCITX_CONFIG="${FCITX_CONF:-$HOME/.config/fcitx5/conf}/classicui.conf"
 THEME_SETTER="$OMARCHY_PATH/bin/omarchy-theme-set"
 
 # Set up the paths
@@ -21,6 +22,7 @@ cd "$DRESSCODE_PATH/themes"
 for file in *; do
 	ln -nsf "$DRESSCODE_PATH/themes/$file" "$FCITX_PATH/$file"
 done
+cd -
 
 # Patch omarchy-theme-set script in an idempotent manner
 UPDATE_COMMENT='# Update Fcitx symlinks'
@@ -35,3 +37,7 @@ if ! grep -qF "$RESTART_COMMAND" "$THEME_SETTER"; then
 fi
 
 echo "Successfully installed the Fcitx dress code."
+
+if gum confirm "Do you want to automatically update your Fcitx config?"; then
+	./configure.sh
+fi
