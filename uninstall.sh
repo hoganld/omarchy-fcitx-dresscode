@@ -15,8 +15,8 @@ fi
 
 # Unpatch omarchy-theme-set
 cd "$OMARCHY_PATH"
-git checkout "bin/omarchy-theme-set"
-cd -
+git checkout "bin/omarchy-theme-set" > /dev/null 2>&1
+cd - > /dev/null
 
 # Unlink the theme files
 if [[ -d "$DRESSCODE_PATH/themes" ]]; then
@@ -24,7 +24,7 @@ if [[ -d "$DRESSCODE_PATH/themes" ]]; then
   for file in *; do
     rm "$FCITX_PATH/$file"
   done
-  cd -
+  cd - > /dev/null
 fi
 
 # Destroy the evidence
