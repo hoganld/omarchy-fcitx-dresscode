@@ -2,11 +2,11 @@
 
 write-color-file() {
   COLOR_FILE="$THEME_PATH/colors.sh"
-  echo "COLOR_TEXT_PRIMARY=${COLOR_TEXT_PRIMARY}" >"$COLOR_FILE"
-  echo "COLOR_TEXT_SELECTED=${COLOR_TEXT_SELECTED}" >>"$COLOR_FILE"
   echo "COLOR_HIGHLIGHT_PRIMARY=${COLOR_HIGHLIGHT_PRIMARY}" >>"$COLOR_FILE"
   echo "COLOR_HIGHLIGHT_SECONDARY=${COLOR_HIGHLIGHT_SECONDARY}" >>"$COLOR_FILE"
   echo "COLOR_BACKGROUND=${COLOR_BACKGROUND}" >>"$COLOR_FILE"
+  echo "COLOR_TEXT_SELECTED=${COLOR_TEXT_SELECTED}" >>"$COLOR_FILE"
+  echo "COLOR_TEXT_PRIMARY=${COLOR_TEXT_PRIMARY}" >"$COLOR_FILE"
   echo "COLOR_ICON=${COLOR_ICON}" >>"$COLOR_FILE"
 }
 
@@ -79,11 +79,11 @@ fi
 source "$THEME_PATH/colors.sh" >/dev/null 2>&1
 
 # Prompt for palette colors, validating format each time
-COLOR_TEXT_PRIMARY=$(get-color "$COLOR_TEXT_PRIMARY" "Primary Text Color")
-COLOR_TEXT_SELECTED=$(get-color "$COLOR_TEXT_SELECTED" "Selected Text Color")
 COLOR_HIGHLIGHT_PRIMARY=$(get-color "$COLOR_HIGHLIGHT_PRIMARY" "Primary Highlight Color")
 COLOR_HIGHLIGHT_SECONDARY=$(get-color "$COLOR_HIGHLIGHT_SECONDARY" "Secondary Highlight Color")
 COLOR_BACKGROUND=$(get-color "$COLOR_BACKGROUND" "Background Color")
+COLOR_TEXT_SELECTED=$(get-color "$COLOR_TEXT_SELECTED" "Selected Text Color")
+COLOR_TEXT_PRIMARY=$(get-color "$COLOR_TEXT_PRIMARY" "Primary Text Color")
 COLOR_ICON=$(get-color "$COLOR_ICON" "Icon Color")
 
 echo "Generating theme ${THEME_NAME}"
