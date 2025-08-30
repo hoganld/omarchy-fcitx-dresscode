@@ -54,10 +54,10 @@ After installation, you shouldn't need to do anything. Fcitx should update right
 ## Generating new themes
 
 Have hex codes handy for six different colors:
-- primary text color
 - primary highlight color
-- secondary highlight color
-- selected text color (text color against the primary highlight)
+- menu highlight color
+- primary text color
+- selected text color
 - background color
 - icon color
 
