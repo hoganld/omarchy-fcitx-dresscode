@@ -56,9 +56,9 @@ After installation, you shouldn't need to do anything. Fcitx should update right
 Have hex codes handy for six different colors:
 - primary text color
 - primary highlight color
-- background color
-- secondary text color (text color against the primary highlight)
 - secondary highlight color
+- selected text color (text color against the primary highlight)
+- background color
 - icon color
 
 Have a look at the existing themes to get a feel for the palette scheme. I came up withe palette color names by studying the (beautiful) themes I found in the [Catppuccin Fcitx Themes](https://github.com/catppuccin/fcitx5) project, as well as the various theme files shipped with Omarchy.
