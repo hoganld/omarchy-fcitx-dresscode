@@ -14,8 +14,6 @@ This project is my attempt to dress up Fcitx to the point that it can be invited
 
 ## What's in the box?
 
-The project is only a few days old, still in initial development. Here's what is coming:
-
 1. A set of color themes for Fcitx to coordinate with each of the default themes that ship with Omarchy.
 
 2. Control scripts and a small patch to integrate with `omarchy-theme-set`, so that updating the theme from Omarchy's native utilities also updates Fcitx.
@@ -50,6 +48,8 @@ Like Omarchy itself, Dress Code works by changing the `current` symlink to point
 ## Usage
 
 After installation, you shouldn't need to do anything. Fcitx should update right along with the rest of Omarchy whenever you change themes.
+
+*Note:* when you change the Omarchy theme, Fcitx restarts. As a result, the input method will reset to the default everywhere. I don't think there's any way to avoid this behavior. Just don't change themes until you finish typing your sentence.
 
 ## Generating new themes
 
