@@ -81,6 +81,19 @@ To *generate new Fcitx themes* you will also need ImageMagick.
 
 The Fcitx theme files in this project are based on the excellent collection provided by [Catppuccin Fcitx](https://github.com/catppuccin/fcitx5).
 
+The colors come from:
+
+- [Catppuccin](https://catppuccin.com)
+- [Everforest](https://github.com/neanias/everforest-nvim)
+- [Gruvbox](https://github.com/ellisonleao/gruvbox.nvim)
+- [Kanagawa](https://github.com/rebelot/kanagawa.nvim)
+- [Matte Black](https://github.com/tahayvr/matteblack.nvim)
+- [Nord](https://www.nordtheme.com)
+- [Osaka Jade](https://github.com/Justikun/omarchy-osaka-jade-theme)
+- [Monokai (Ristretto)](https://github.com/loctvl842/monokai-pro.nvim)
+- [Rose Pine](https://rosepinetheme.com)
+- [Tokyo Night](https://github.com/folke/tokyonight.nvim)
+
 And of course, a big thank-you to David Heinemeier Hansson for Omarchy.
 
 ## License
