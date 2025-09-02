@@ -95,7 +95,6 @@ write-color-file
 
 # copy templates into theme dir
 cp "$TEMPLATE_PATH/theme.conf" "$THEME_PATH/theme.conf"
-cp "$TEMPLATE_PATH/preview.html" "$THEME_PATH/preview.html"
 cp "$TEMPLATE_PATH/arrow.svg" "$THEME_PATH/arrow.svg"
 cp "$TEMPLATE_PATH/radio.svg" "$THEME_PATH/radio.svg"
 
@@ -105,15 +104,6 @@ sed -i "s/COLOR_TEXT_SELECTED/${COLOR_TEXT_SELECTED}/g" "$THEME_PATH/theme.conf"
 sed -i "s/COLOR_HIGHLIGHT_PRIMARY/${COLOR_HIGHLIGHT_PRIMARY}/g" "$THEME_PATH/theme.conf"
 sed -i "s/COLOR_HIGHLIGHT_MENU/${COLOR_HIGHLIGHT_MENU}/g" "$THEME_PATH/theme.conf"
 sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/theme.conf"
-
-## insert theme colors into preview.html
-sed -i "s/THEME_NAME/${THEME_NAME}/g" "$THEME_PATH/preview.html"
-sed -i "s/COLOR_TEXT_PRIMARY/${COLOR_TEXT_PRIMARY}/g" "$THEME_PATH/preview.html"
-sed -i "s/COLOR_TEXT_SELECTED/${COLOR_TEXT_SELECTED}/g" "$THEME_PATH/preview.html"
-sed -i "s/COLOR_HIGHLIGHT_PRIMARY/${COLOR_HIGHLIGHT_PRIMARY}/g" "$THEME_PATH/preview.html"
-sed -i "s/COLOR_HIGHLIGHT_MENU/${COLOR_HIGHLIGHT_MENU}/g" "$THEME_PATH/preview.html"
-sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/preview.html"
-sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/preview.html"
 
 # insert theme colors into SVGs
 sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/arrow.svg"
