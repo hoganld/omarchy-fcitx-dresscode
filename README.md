@@ -90,7 +90,7 @@ The colors come from:
 - [Matte Black](https://github.com/tahayvr/matteblack.nvim)
 - [Nord](https://www.nordtheme.com)
 - [Osaka Jade](https://github.com/Justikun/omarchy-osaka-jade-theme)
-- [Monokai (Ristretto)](https://github.com/loctvl842/monokai-pro.nvim)
+- [Ristretto (Monokai)](https://github.com/loctvl842/monokai-pro.nvim)
 - [Rose Pine](https://rosepinetheme.com)
 - [Tokyo Night](https://github.com/folke/tokyonight.nvim)
 
