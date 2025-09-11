@@ -15,4 +15,4 @@ else
   ln -nsf "$FCITX_FALLBACK_THEME_DIR" "$FCITX_CURRENT_THEME_DIR"
 fi
 
-omarchy-restart-fcitx
+omarchy-restart-app fcitx5
