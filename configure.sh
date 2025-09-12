@@ -15,6 +15,8 @@ fi
 FCITX_THEME_FILE="$FCITX_CONF_DIR/classicui.conf"
 
 if grep -qF "Theme=" "$FCITX_THEME_FILE" 2>/dev/null; then
+  PRIOR_THEME=$(grep "Theme=" $FCITX_THEME_FILE)
+  echo $PRIOR_THEME >.prior-theme
   sed -i "s/^Theme=.*$/Theme=current/" "$FCITX_THEME_FILE"
   echo "Updated Fcitx config to use the current Dress Code theme."
 else
