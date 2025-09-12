@@ -36,3 +36,5 @@ echo "Successfully installed the Fcitx Dress Code."
 if gum confirm "Do you want to automatically update your Fcitx config?"; then
   ./configure.sh
 fi
+
+omarchy-restart-app fcitx5
