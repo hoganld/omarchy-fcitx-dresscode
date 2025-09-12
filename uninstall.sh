@@ -21,6 +21,7 @@ if [[ -d "$DRESSCODE_PATH/themes" ]]; then
   for file in *; do
     unlink "$FCITX_PATH/$file"
   done
+  unlink "$FCITX_PATH/current"
   cd - >/dev/null
 fi
 
