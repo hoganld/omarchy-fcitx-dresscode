@@ -24,6 +24,23 @@ if [[ -d "$DRESSCODE_PATH/themes" ]]; then
   cd - >/dev/null
 fi
 
+# Undo the configuration
+FCITX_BASE_DIR="$HOME/.config/fcitx5"
+if [[ ! -d $FCITX_BASE_DIR ]]; then
+  FCITX_BASE_DIR=$(gum input --prompt "Where is your Fcitx configuration directory? " --placeholder "$FCITX_BASE_DIR")
+fi
+
+FCITX_THEME_FILE="$FCITX_BASE_DIR/conf/classicui.conf"
+
+if [[ -f $FCITX_THEME_FILE ]]; then
+  if [[ -f $DRESSCODE_PATH/.prior-theme ]]; then
+    PRIOR_THEME=$(cat $DRESSCODE_PATH/.prior-theme)
+  else
+    PRIOR_THEME=""
+  fi
+  sed -i "s/^Theme=.*$/$PRIOR_THEME/" $FCITX_THEME_FILE
+fi
+
 # Destroy the evidence
 rm -rf "$DRESSCODE_PATH"
 
