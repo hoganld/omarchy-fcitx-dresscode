@@ -45,4 +45,6 @@ fi
 # Destroy the evidence
 rm -rf "$DRESSCODE_PATH"
 
+omarchy-restart-app fcitx5
+
 echo "Successfully uninstalled Fcitx Dress Code."
