@@ -24,6 +24,14 @@ for file in *; do
 done
 cd -
 
+# Set the current theme
+CURRENT_THEME=$(basename $(readlink -f $HOME/.config/omarchy/current/theme))
+if [[ -d $FCITX_PATH/$CURRENT_THEME ]]; then
+  ln -nsf $FCITX_PATH/$CURRENT_THEME $FCITX_PATH/current
+else
+  ln -nsf $FCITX_PATH/fallback $FCITX_PATH/current
+fi
+
 # Patch omarchy-theme-set script in an idempotent manner
 UPDATE_COMMENT='# Update Fcitx theme'
 UPDATE_COMMAND="${BIN_PATH}/dresscode-theme-set \"\$THEME_NAME\""
