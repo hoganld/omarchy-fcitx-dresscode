@@ -45,4 +45,4 @@ if gum confirm "Do you want to automatically update your Fcitx config?"; then
   ./configure.sh
 fi
 
-omarchy-restart-app fcitx5
+omarchy-restart-xcompose
