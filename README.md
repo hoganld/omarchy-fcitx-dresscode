@@ -55,13 +55,10 @@ After installation, you shouldn't need to do anything. Fcitx should update right
 
 ## Generating new themes
 
-Have hex codes handy for six different colors:
-- primary highlight color
-- menu highlight color
-- primary text color
-- selected text color
+Have hex codes handy for just three colors:
 - background color
-- icon color
+- highlight color
+- text color
 
 Have a look at the existing themes to get a feel for the palette scheme. I came up withe palette color names by studying the (beautiful) themes I found in the [Catppuccin Fcitx Themes](https://github.com/catppuccin/fcitx5) project, as well as the various theme files shipped with Omarchy.
 

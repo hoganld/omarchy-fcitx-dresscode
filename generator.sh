@@ -2,13 +2,9 @@
 
 write-color-file() {
   COLOR_FILE="$THEME_PATH/colors.sh"
-  echo "COLOR_HIGHLIGHT_PRIMARY=${COLOR_HIGHLIGHT_PRIMARY}" >"$COLOR_FILE"
-  echo "COLOR_HIGHLIGHT_MENU=${COLOR_HIGHLIGHT_MENU}" >>"$COLOR_FILE"
-  echo "COLOR_BACKGROUND=${COLOR_BACKGROUND}" >>"$COLOR_FILE"
-  echo "COLOR_BORDER=${COLOR_BORDER}" >> "$COLOR_FILE"
-  echo "COLOR_TEXT_SELECTED=${COLOR_TEXT_SELECTED}" >>"$COLOR_FILE"
-  echo "COLOR_TEXT_PRIMARY=${COLOR_TEXT_PRIMARY}" >>"$COLOR_FILE"
-  echo "COLOR_ICON=${COLOR_ICON}" >>"$COLOR_FILE"
+  echo "COLOR_HIGHLIGHT=${COLOR_HIGHLIGHT}" > $COLOR_FILE
+  echo "COLOR_BACKGROUND=${COLOR_BACKGROUND}" >> $COLOR_FILE
+  echo "COLOR_TEXT=${COLOR_TEXT}" >> $COLOR_FILE
 }
 
 valid-color() {
@@ -80,13 +76,9 @@ fi
 source "$THEME_PATH/colors.sh" >/dev/null 2>&1
 
 # Prompt for palette colors, validating format each time
-COLOR_HIGHLIGHT_PRIMARY=$(get-color "$COLOR_HIGHLIGHT_PRIMARY" "Primary Highlight Color")
-COLOR_HIGHLIGHT_MENU=$(get-color "$COLOR_HIGHLIGHT_MENU" "Menu Highlight Color")
+COLOR_HIGHLIGHT=$(get-color "$COLOR_HIGHLIGHT" "Highlight Color")
 COLOR_BACKGROUND=$(get-color "$COLOR_BACKGROUND" "Background Color")
-COLOR_BORDER=$(get-color "$COLOR_BORDER" "Border Color")
-COLOR_TEXT_SELECTED=$(get-color "$COLOR_TEXT_SELECTED" "Selected Text Color")
-COLOR_TEXT_PRIMARY=$(get-color "$COLOR_TEXT_PRIMARY" "Primary Text Color")
-COLOR_ICON=$(get-color "$COLOR_ICON" "Icon Color")
+COLOR_TEXT=$(get-color "$COLOR_TEXT" "Text Color")
 
 echo "Generating theme ${THEME_NAME}"
 
@@ -102,17 +94,15 @@ cp "$TEMPLATE_PATH/radio.svg" "$THEME_PATH/radio.svg"
 cp "$TEMPLATE_PATH/panel.svg" "$THEME_PATH/panel.svg"
 
 # insert theme colors into theme.conf
-sed -i "s/COLOR_TEXT_PRIMARY/${COLOR_TEXT_PRIMARY}/g" "$THEME_PATH/theme.conf"
-sed -i "s/COLOR_TEXT_SELECTED/${COLOR_TEXT_SELECTED}/g" "$THEME_PATH/theme.conf"
-sed -i "s/COLOR_HIGHLIGHT_PRIMARY/${COLOR_HIGHLIGHT_PRIMARY}/g" "$THEME_PATH/theme.conf"
-sed -i "s/COLOR_HIGHLIGHT_MENU/${COLOR_HIGHLIGHT_MENU}/g" "$THEME_PATH/theme.conf"
+sed -i "s/COLOR_HIGHLIGHT/${COLOR_HIGHLIGHT}/g" "$THEME_PATH/theme.conf"
 sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/theme.conf"
+sed -i "s/COLOR_TEXT/${COLOR_TEXT}/g" "$THEME_PATH/theme.conf"
 
 # insert theme colors into SVGs
-sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/arrow.svg"
-sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/radio.svg"
+sed -i "s/COLOR_TEXT/${COLOR_TEXT}/g" "$THEME_PATH/arrow.svg"
+sed -i "s/COLOR_TEXT/${COLOR_TEXT}/g" "$THEME_PATH/radio.svg"
 sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/panel.svg"
-sed -i "s/COLOR_BORDER/${COLOR_BORDER}/g" "$THEME_PATH/panel.svg"
+sed -i "s/COLOR_HIGHLIGHT/${COLOR_HIGHLIGHT}/g" "$THEME_PATH/panel.svg"
 
 # convert SVGs to PNGs and clean up
 if command -v magick &>/dev/null; then
