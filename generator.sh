@@ -5,6 +5,7 @@ write-color-file() {
   echo "COLOR_HIGHLIGHT_PRIMARY=${COLOR_HIGHLIGHT_PRIMARY}" >"$COLOR_FILE"
   echo "COLOR_HIGHLIGHT_MENU=${COLOR_HIGHLIGHT_MENU}" >>"$COLOR_FILE"
   echo "COLOR_BACKGROUND=${COLOR_BACKGROUND}" >>"$COLOR_FILE"
+  echo "COLOR_BORDER=${COLOR_BORDER}" >> "$COLOR_FILE"
   echo "COLOR_TEXT_SELECTED=${COLOR_TEXT_SELECTED}" >>"$COLOR_FILE"
   echo "COLOR_TEXT_PRIMARY=${COLOR_TEXT_PRIMARY}" >>"$COLOR_FILE"
   echo "COLOR_ICON=${COLOR_ICON}" >>"$COLOR_FILE"
@@ -82,6 +83,7 @@ source "$THEME_PATH/colors.sh" >/dev/null 2>&1
 COLOR_HIGHLIGHT_PRIMARY=$(get-color "$COLOR_HIGHLIGHT_PRIMARY" "Primary Highlight Color")
 COLOR_HIGHLIGHT_MENU=$(get-color "$COLOR_HIGHLIGHT_MENU" "Menu Highlight Color")
 COLOR_BACKGROUND=$(get-color "$COLOR_BACKGROUND" "Background Color")
+COLOR_BORDER=$(get-color "$COLOR_BORDER" "Border Color")
 COLOR_TEXT_SELECTED=$(get-color "$COLOR_TEXT_SELECTED" "Selected Text Color")
 COLOR_TEXT_PRIMARY=$(get-color "$COLOR_TEXT_PRIMARY" "Primary Text Color")
 COLOR_ICON=$(get-color "$COLOR_ICON" "Icon Color")
@@ -97,6 +99,7 @@ write-color-file
 cp "$TEMPLATE_PATH/theme.conf" "$THEME_PATH/theme.conf"
 cp "$TEMPLATE_PATH/arrow.svg" "$THEME_PATH/arrow.svg"
 cp "$TEMPLATE_PATH/radio.svg" "$THEME_PATH/radio.svg"
+cp "$TEMPLATE_PATH/panel.svg" "$THEME_PATH/panel.svg"
 
 # insert theme colors into theme.conf
 sed -i "s/COLOR_TEXT_PRIMARY/${COLOR_TEXT_PRIMARY}/g" "$THEME_PATH/theme.conf"
@@ -108,13 +111,17 @@ sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/theme.conf"
 # insert theme colors into SVGs
 sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/arrow.svg"
 sed -i "s/COLOR_ICON/${COLOR_ICON}/g" "$THEME_PATH/radio.svg"
+sed -i "s/COLOR_BACKGROUND/${COLOR_BACKGROUND}/g" "$THEME_PATH/panel.svg"
+sed -i "s/COLOR_BORDER/${COLOR_BORDER}/g" "$THEME_PATH/panel.svg"
 
 # convert SVGs to PNGs and clean up
 if command -v magick &>/dev/null; then
-  magick "$THEME_PATH/arrow.svg" "$THEME_PATH/arrow.png"
-  magick "$THEME_PATH/radio.svg" "$THEME_PATH/radio.png"
+  magick -background none "$THEME_PATH/arrow.svg" "$THEME_PATH/arrow.png"
+  magick -background none "$THEME_PATH/radio.svg" "$THEME_PATH/radio.png"
+  magick -background none "$THEME_PATH/panel.svg" "$THEME_PATH/panel.png"
   rm "$THEME_PATH/arrow.svg"
   rm "$THEME_PATH/radio.svg"
+  rm "$THEME_PATH/panel.svg"
   exit 0
 else
   echo "ImageMagick is not installed; PNG files not generated."
