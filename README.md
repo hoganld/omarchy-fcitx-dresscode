@@ -97,7 +97,3 @@ The colors come from:
 - [Tokyo Night](https://github.com/folke/tokyonight.nvim)
 
 And of course, a big thank-you to David Heinemeier Hansson for Omarchy.
-
-## License
-
-MIT. Do what you want.
