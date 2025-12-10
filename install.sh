@@ -3,7 +3,7 @@
 DRESSCODE_PATH="${FCITX_DRESSCODE_PATH:-$HOME/.local/share/fcitx-dresscode}"
 FCITX_PATH="${FCITX_ROOT:-$HOME/.local/share/fcitx5}/themes"
 BIN_PATH="$HOME/.local/bin"
-THEME_SETTER="$OMARCHY_PATH/bin/omarchy-theme-set"
+THEME_HOOK="$HOME/.config/omarchy/hooks/theme-set"
 
 # Set up the paths
 mkdir -p "$DRESSCODE_PATH"
@@ -32,11 +32,10 @@ else
   ln -nsf $FCITX_PATH/fallback $FCITX_PATH/current
 fi
 
-# Patch omarchy-theme-set script in an idempotent manner
-UPDATE_COMMENT='# Update Fcitx theme'
-UPDATE_COMMAND="${BIN_PATH}/dresscode-theme-set \"\$THEME_NAME\""
-if ! grep -qF "$UPDATE_COMMAND" "$THEME_SETTER"; then
-  sed -i "/Restart components/i\\$UPDATE_COMMENT\n$UPDATE_COMMAND\n" "$THEME_SETTER"
+# Call dresscode-theme-set from the omarchy theme-set hook
+UPDATE_COMMAND="$BIN_PATH/dresscode-theme-set \$1"
+if ! grep -qF "$UPDATE_COMMAND" $THEME_HOOK; then
+  echo "$UPDATE_COMMAND" >> $THEME_HOOK
 fi
 
 echo "Successfully installed the Fcitx Dress Code."
