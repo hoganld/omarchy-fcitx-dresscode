@@ -36,12 +36,8 @@ fi
 FCITX_THEME_FILE="$FCITX_BASE_DIR/conf/classicui.conf"
 
 if [[ -f $FCITX_THEME_FILE ]]; then
-  if [[ -f $DRESSCODE_PATH/.prior-theme ]]; then
-    PRIOR_THEME=$(cat $DRESSCODE_PATH/.prior-theme)
-  else
-    PRIOR_THEME=""
-  fi
-  sed -i "s/^Theme=.*$/$PRIOR_THEME/" $FCITX_THEME_FILE
+  echo "Cleaning up $FCITX_BASE_DIR/conf/classicui.conf"
+  sed -i "/^Theme=.*$/d" $FCITX_THEME_FILE
 fi
 
 # Destroy the evidence
