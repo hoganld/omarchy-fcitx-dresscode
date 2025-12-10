@@ -16,15 +16,13 @@ This project is my attempt to dress up Fcitx to the point that it can be invited
 
 1. A set of color themes for Fcitx to coordinate with each of the default themes that ship with Omarchy.
 
-2. One control script to update the Fcitx theme
+2. One control script to update the Fcitx theme, integrated into the Omarchy theme switching machinery via the `theme-set` hook.
 
-3. A one-line patch to `omarchy-theme-set`, so that updating the theme from Omarchy's native utilities also updates Fcitx.
+3. A script to install the themes and wire up the Omarchy integration.
 
-4. A script to install the themes and wire up the Omarchy integration.
+4. A script to uninstall everything.
 
-5. A script to uninstall everything.
-
-6. A generator script and a set of templates to facilitate the creation of new Fcitx themes, so you can add your own themes, and so I can keep up as DHH accepts new themes into Omarchy.
+5. A generator script and a set of templates to facilitate the creation of new Fcitx themes, so you can add your own themes, and so I can keep up as DHH accepts new themes into Omarchy.
 
 ## Installation
 
