@@ -16,3 +16,4 @@ else
 fi
 
 omarchy-restart-xcompose
+omarchy-hook dresscode-set "$THEME_NAME"

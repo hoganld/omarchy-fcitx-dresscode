@@ -38,6 +38,17 @@ if ! grep -qF "$UPDATE_COMMAND" $THEME_HOOK; then
   echo "$UPDATE_COMMAND" >> $THEME_HOOK
 fi
 
+# Stub out dresscode-set.sample hook script
+if [[ -d "$HOME/.config/omarchy/hooks" ]]; then
+  tee "$HOME/.config/omarchy/hooks/dresscode-set.sample" > /dev/null <<EOF
+#!/bin/bash
+# This hook is called with the snake-cased name of the theme that has just been set,
+# exactly like the `theme-set` hook. But this hook runs after Dresscode updates the
+# Fcitx5 theme, immediately after the call to `omarchy-restart-xcompose`.
+# To put it into use, remove .sample from the name.
+EOF
+fi
+
 echo "Successfully installed the Fcitx Dress Code."
 
 if gum confirm "Do you want to automatically update your Fcitx config?"; then
