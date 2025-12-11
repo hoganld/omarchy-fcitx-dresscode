@@ -16,3 +16,6 @@ else
 fi
 
 omarchy-restart-xcompose
+PID=$!
+wait $PID
+dbus-send --session --type=method_call --dest=org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.Restart
