@@ -13,11 +13,11 @@ fi
 
 # Clean up the hooks
 UPDATE_COMMAND="$BIN_PATH/dresscode-theme-set \$1"
-LINE=$(grep -n "$UPDATE_COMMAND" $THEME_HOOK 2> /dev/null | cut -d: -f1)
+LINE=$(grep -n "$UPDATE_COMMAND" "$THEME_HOOK" 2> /dev/null | cut -d: -f1)
 if [[ ! -z $LINE ]]; then
-  sed -i "${LINE}d" $THEME_HOOK
+  sed -i "${LINE}d" "$THEME_HOOK"
 fi
-rm $DRESSCODE_HOOK 2> /dev/null
+rm "$DRESSCODE_HOOK" 2> /dev/null
 
 # Unlink the theme files
 if [[ -d "$DRESSCODE_PATH/themes" ]]; then
@@ -31,15 +31,15 @@ fi
 
 # Undo the configuration
 FCITX_BASE_DIR="$HOME/.config/fcitx5"
-if [[ ! -d $FCITX_BASE_DIR ]]; then
+if [[ ! -d "$FCITX_BASE_DIR" ]]; then
   FCITX_BASE_DIR=$(gum input --prompt "Where is your Fcitx configuration directory? " --placeholder "$FCITX_BASE_DIR")
 fi
 
 FCITX_THEME_FILE="$FCITX_BASE_DIR/conf/classicui.conf"
 
-if [[ -f $FCITX_THEME_FILE ]]; then
+if [[ -f "$FCITX_THEME_FILE" ]]; then
   echo "Cleaning up $FCITX_BASE_DIR/conf/classicui.conf"
-  sed -i "/^Theme=.*$/d" $FCITX_THEME_FILE
+  sed -i "/^Theme=.*$/d" "$FCITX_THEME_FILE"
 fi
 
 # Destroy the evidence
