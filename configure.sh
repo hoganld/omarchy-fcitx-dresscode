@@ -1,6 +1,5 @@
 #!/bin/bash
 
-DRESSCODE_PATH="${FCITX_DRESSCODE_PATH:-$HOME/.local/share/fcitx-dresscode}"
 FCITX_BASE_DIR="$HOME/.config/fcitx5"
 
 if [[ ! -d "$FCITX_BASE_DIR" ]]; then
@@ -10,7 +9,7 @@ fi
 FCITX_CONF_DIR="$FCITX_BASE_DIR/conf"
 
 if [[ ! -d "$FCITX_CONF_DIR" ]]; then
-  mkdir -p $FCITX_CONF_DIR
+  mkdir -p "$FCITX_CONF_DIR"
 fi
 
 FCITX_THEME_FILE="$FCITX_CONF_DIR/classicui.conf"
