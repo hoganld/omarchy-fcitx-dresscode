@@ -24,14 +24,6 @@ for file in *; do
 done
 cd -
 
-# Set the current theme
-CURRENT_THEME=$(basename $(readlink -f $HOME/.config/omarchy/current/theme))
-if [[ -d "$FCITX_PATH/$CURRENT_THEME" ]]; then
-  ln -nsf "$FCITX_PATH/$CURRENT_THEME" "$FCITX_PATH/current"
-else
-  ln -nsf "$FCITX_PATH/fallback" "$FCITX_PATH/current"
-fi
-
 # Call dresscode-theme-set from the omarchy theme-set hook
 UPDATE_COMMAND="$BIN_PATH/dresscode-theme-set \$1"
 if ! grep -qF "$UPDATE_COMMAND" "$THEME_HOOK"; then
@@ -49,10 +41,14 @@ if [[ -d "$HOME/.config/omarchy/hooks" ]]; then
 EOF
 fi
 
-echo "Successfully installed the Fcitx Dress Code."
+echo "Successfully installed the Fcitx Omarchy themes."
 
-if gum confirm "Do you want to automatically update your Fcitx config?"; then
-  ./configure.sh
+if gum confirm "Do you want to automatically set the Fcitx theme now?"; then
+  # Set the current theme  
+  CURRENT_THEME=$(basename $(readlink -f $HOME/.config/omarchy/current/theme))
+  ./bin/dresscode-theme-set "$CURRENT_THEME"
+  echo "Fcitx theme is set to $CURRENT_THEME, and will update with the Omarchy theme."
+else
+  echo "Your Fcitx theme will update with the Omarchy theme."
 fi
 
-omarchy-restart-xcompose

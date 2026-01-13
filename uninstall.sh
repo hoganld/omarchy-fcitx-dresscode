@@ -6,6 +6,9 @@ BIN_PATH="$HOME/.local/bin"
 THEME_HOOK="$HOME/.config/omarchy/hooks/theme-set"
 DRESSCODE_HOOK="$HOME/.config/omarchy/hooks/dresscode-set.sample"
 
+# Undo the configuration
+./bin/dresscode-theme-set "default"
+
 # Unlink the control scripts
 if [[ -f "$BIN_PATH/dresscode-theme-set" ]]; then
   unlink "$BIN_PATH/dresscode-theme-set"
@@ -25,26 +28,10 @@ if [[ -d "$DRESSCODE_PATH/themes" ]]; then
   for file in *; do
     unlink "$FCITX_PATH/$file"
   done
-  unlink "$FCITX_PATH/current"
   cd - >/dev/null
-fi
-
-# Undo the configuration
-FCITX_BASE_DIR="$HOME/.config/fcitx5"
-if [[ ! -d "$FCITX_BASE_DIR" ]]; then
-  FCITX_BASE_DIR=$(gum input --prompt "Where is your Fcitx configuration directory? " --placeholder "$FCITX_BASE_DIR")
-fi
-
-FCITX_THEME_FILE="$FCITX_BASE_DIR/conf/classicui.conf"
-
-if [[ -f "$FCITX_THEME_FILE" ]]; then
-  echo "Cleaning up $FCITX_BASE_DIR/conf/classicui.conf"
-  sed -i "/^Theme=.*$/d" "$FCITX_THEME_FILE"
 fi
 
 # Destroy the evidence
 rm -rf "$DRESSCODE_PATH"
-
-omarchy-restart-app fcitx5
 
 echo "Successfully uninstalled Fcitx Dress Code."

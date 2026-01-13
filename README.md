@@ -34,22 +34,9 @@ The themes and scripts are then symlinked to the locations where Omarchy and Fci
 
 For Fcitx, it reads theme files from `$HOME/.local/share/fcitx5/themes`. If you have somehow configured Fcitx to look in a different directory (I do not know how to make it do so), you will need to set the `$FCITX_PATH` environment variable before running `install.sh`.
 
-## Configuration
-
-Fcitx needs to know the name of the theme to use. It reads this from the `classicui.conf` file, which by default lives at `$HOME/.config/fcitx5/conf/classicui.conf`. For Dress Code to work correctly, this file needs to contain the following directive:
-
-`Theme=current`
-
-The installer will offer to set this value for you automatically. If you decline (or if the script fails), you will need to edit the file manually. (Or, you can later run the `configure.sh` script yourself, which is all the installer does anyway.)
-
-### "current"?
-Like Omarchy itself, Dress Code works by changing the `current` symlink to point to the desired theme files. Thus, Dress Code does not need to touch your config each time you change themes. You just set the config once and forget it.
-
 ## Usage
 
 After installation, you shouldn't need to do anything. Fcitx should update right along with the rest of Omarchy whenever you change themes.
-
-*Note:* when you change the Omarchy theme, Fcitx restarts. As a result, the input method will reset to the default everywhere. I don't think there's any way to avoid this behavior. Just don't change themes until you finish typing your sentence.
 
 ## Generating new themes
 

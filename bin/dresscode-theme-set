@@ -1,19 +1,16 @@
 #!/bin/bash
 
-THEME_NAME=$1
-
-FCITX_THEMES_DIR="$HOME/.local/share/fcitx5/themes/"
-FCITX_CURRENT_THEME_DIR="$HOME/.local/share/fcitx5/themes/current"
-FCITX_FALLBACK_THEME_DIR="$HOME/.local/share/fcitx5/themes/fallback"
-FCITX_THEME_PATH="$FCITX_THEMES_DIR/$THEME_NAME"
+THEME_NAME="$1"
+FCITX_THEMES_ROOT="$HOME/.local/share/fcitx5/themes"
 
 # If a matching fcitx5 theme exists, use it
 # Otherwise, set the default fcitx5 theme
-if [[ -d "$FCITX_THEME_PATH" ]]; then
-  ln -nsf "$FCITX_THEME_PATH" "$FCITX_CURRENT_THEME_DIR"
-else
-  ln -nsf "$FCITX_FALLBACK_THEME_DIR" "$FCITX_CURRENT_THEME_DIR"
+if [[ ! -d "$FCITX_THEMES_ROOT/$THEME_NAME" ]]; then
+  THEME_NAME="fallback"
 fi
 
-omarchy-restart-xcompose
-omarchy-hook dresscode-set "$THEME_NAME"
+# This gem comes from this GitHub discussion
+# https://github.com/fcitx/fcitx5/issues/900#issuecomment-1913679787
+gdbus call --session --dest org.fcitx.Fcitx5 --object-path /controller --method org.fcitx.Fcitx.Controller1.SetConfig fcitx://config/addon/classicui "<{'Theme': <'$THEME_NAME'>}>"
+
+omarchy-hook dresscode-set "$1"
