@@ -22,10 +22,15 @@ cd "$MEKASHIYA_PATH/themes"
 for file in *; do
   ln -nsf "$MEKASHIYA_PATH/themes/$file" "$FCITX_THEMES_PATH/$file"
 done
-cd -
+cd - > /dev/null
+
+# Make sure the theme-set hook file exists
+if [[ ! -f "$THEME_HOOK" ]]; then
+  echo "#!/bin/bash" >> "$THEME_HOOK"
+fi
 
 # Call mekashiya-set from the omarchy theme-set hook
-UPDATE_COMMAND="$BIN_PATH/mekashiya-set \$1"
+UPDATE_COMMAND="$BIN_PATH/mekashiya-set \"\$1\""
 if ! grep -qF "$UPDATE_COMMAND" "$THEME_HOOK"; then
   echo "$UPDATE_COMMAND" >> "$THEME_HOOK"
 fi
@@ -36,8 +41,8 @@ if [[ -d "$HOME/.config/omarchy/hooks" ]]; then
   tee "$HOME/.config/omarchy/hooks/fcitx-theme-set.sample" > /dev/null <<EOF
 #!/bin/bash
 # This hook is called with the snake-cased name of the theme that has just been set,
-# exactly like the `theme-set` hook. But this hook runs after Mekashiya updates the
-# Fcitx5 theme, immediately after the call to `gdbus`.
+# exactly like the theme-set hook. But this hook runs after Mekashiya updates the
+# Fcitx5 theme, immediately after the call to gdbus.
 # To put it into use, remove .sample from the name.
 EOF
 fi
