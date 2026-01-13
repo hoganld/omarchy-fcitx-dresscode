@@ -4,8 +4,6 @@ MEKASHIYA_PATH="${MEKASHIYA_ROOT:-$HOME/.local/share/mekashiya}"
 FCITX_THEMES_PATH="${FCITX_THEMES_ROOT:-$HOME/.local/share/fcitx5/themes}"
 BIN_PATH="${LOCAL_BIN:-$HOME/.local/bin}"
 THEME_HOOK="$HOME/.config/omarchy/hooks/theme-set"
-# TODO Delete MEKASHIYA_HOOK
-MEKASHIYA_HOOK="$HOME/.config/omarchy/hooks/fcitx-theme-set.sample"
 
 # Undo the configuration
 ./bin/mekashiya-set "default"
@@ -21,8 +19,6 @@ LINE=$(grep -n "$UPDATE_COMMAND" "$THEME_HOOK" 2> /dev/null | cut -d: -f1)
 if [[ ! -z $LINE ]]; then
   sed -i "${LINE}d" "$THEME_HOOK"
 fi
-# TODO remove this line
-rm "$MEKASHIYA_HOOK" 2> /dev/null
 
 # Unlink the theme files
 if [[ -d "$MEKASHIYA_PATH/themes" ]]; then

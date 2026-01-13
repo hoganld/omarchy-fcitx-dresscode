@@ -12,6 +12,3 @@ fi
 # This gem comes from this GitHub discussion
 # https://github.com/fcitx/fcitx5/issues/900#issuecomment-1913679787
 gdbus call --session --dest org.fcitx.Fcitx5 --object-path /controller --method org.fcitx.Fcitx.Controller1.SetConfig fcitx://config/addon/classicui "<{'Theme': <'$THEME_NAME'>}>"
-
-# TODO Remove this call -- there should not be any need for special hooks any more
-omarchy-hook fcitx-theme-set "$1"

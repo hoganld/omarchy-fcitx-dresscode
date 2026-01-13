@@ -35,18 +35,6 @@ if ! grep -qF "$UPDATE_COMMAND" "$THEME_HOOK"; then
   echo "$UPDATE_COMMAND" >> "$THEME_HOOK"
 fi
 
-# TODO delete this sample hook because it should not be needed no more
-# Stub out fcitx-theme-set.sample hook script
-if [[ -d "$HOME/.config/omarchy/hooks" ]]; then
-  tee "$HOME/.config/omarchy/hooks/fcitx-theme-set.sample" > /dev/null <<EOF
-#!/bin/bash
-# This hook is called with the snake-cased name of the theme that has just been set,
-# exactly like the theme-set hook. But this hook runs after Mekashiya updates the
-# Fcitx5 theme, immediately after the call to gdbus.
-# To put it into use, remove .sample from the name.
-EOF
-fi
-
 echo "Successfully installed the Omarchy Fcitx themes."
 
 if gum confirm "Do you want to automatically set the Fcitx theme now?"; then
