@@ -1,4 +1,7 @@
-# Omarchy Fcitx Dress Code
+# Mekashiya
+
+> めかし屋: (n) fashionable person; dandy; flashy dresser; fop
+> -- [Jim Breen's WWWJDIC](https://www.edrdg.org/cgi-bin/wwwjdic/wwwjdic)
 
 I love [Omarchy](https://omarchy.org). And I need [Fcitx](https://fcitx-im.org) every time I want to type in Japanese.
 
@@ -28,11 +31,11 @@ This project is my attempt to dress up Fcitx to the point that it can be invited
 
 Simply run "install.sh".
 
-By default, the theme files and scripts will be installed to `$HOME/.local/share/fcitx-dresscode`. To specify a different location, set the `DRESSCODE_PATH` environment variable.
+By default, the theme files and scripts will be installed to `$HOME/.local/share/mekashiya`. To specify a different location, set the `MEKASHIYA_ROOT` environment variable.
 
-The themes and scripts are then symlinked to the locations where Omarchy and Fcitx expect them. For Omarchy, this is under `$OMARCHY_PATH/bin`, but you shouldn't need to modify this.
+The themes are then symlinked into `$HOME/.local/share/fcitx5/themes`, which is where Fcitx expects them by default. If you have somehow configured a different Fcitx theme directory (I do not know how to do it, but it may well be possible), you will need to set the `FCITX_THEMES_ROOT` environment variable before running `install.sh`.
 
-For Fcitx, it reads theme files from `$HOME/.local/share/fcitx5/themes`. If you have somehow configured Fcitx to look in a different directory (I do not know how to make it do so), you will need to set the `$FCITX_PATH` environment variable before running `install.sh`.
+Mekashiya works by calling the `mekashiya-set` script from Omarchy's `theme-set` hook (`$HOME/.config/omarchy/hooks/theme-set`). The installer will attempt to patch the hook automatically, but if it fails, you will need to patch it manually. Inspect `install.sh` for the code to patch in `theme-set`. It's a one-liner. The `mekashiya-set` script will be symlinked into `$HOME/.local/bin` by default. To put it elsewhere, set the `LOCAL_BIN` environment variable before running `install.sh`.
 
 ## Usage
 
@@ -49,15 +52,17 @@ Have a look at the existing themes to get a feel for the palette scheme. I came 
 
 Once you've picked your colors, run `generator.sh`. It will prompt you for the name of your theme and the color palette. If it can't find your template or themes directories, it will ask you for those as well.
 
-By default, the generator will install the themes into the `themes` subdirectory of the current directory, because the assumption is that you are running the script from the root of this project and that you want to save it in Git. (In other words, I wrote the generator for myself, for the purpose of updating this project as DHH adds new themes to Omarchy). If you want to generate a new theme directly into your local Dress Code installation, set the `THEMES_DIR` environment variable.
+By default, the generator will install the themes into the `themes` subdirectory of the current directory, because the assumption is that you are running the script from the root of this project and that you want to save it in Git. (In other words, I wrote the generator for myself, for the purpose of updating this project as DHH adds new themes to Omarchy). If you want to generate a new theme directly into your local Mekashiya installation, set the `THEMES_DIR` environment variable.
 
 Similarly, you can set the `TEMPLATE_PATH` environment variable if you are running the script from outside the root of this project.
 
 ## Dependencies
 
-To *run* Dress Code, all you need is a working Omarchy box with Fcitx installed and configured. (Dress Code will not install or configure Fcitx for you.)
+To *run* Mekashiya, all you need is a working Omarchy box with Fcitx installed and configured. (Mekashiya will not install or configure Fcitx for you. It should be installed by Omarchy already.)
 
-To *install* Dress Code, you also need [gum](https://github.com/charmbracelet/gum), but you should have this already, since Omarchy uses it.
+Mekashiya uses `gdbus` to dynamically update the theme, but you should not have to worry about this, since Omarchy installs `gdbus` by default.
+
+To *install* Mekashiya, you also need [gum](https://github.com/charmbracelet/gum), but you should have this already, since Omarchy uses it.
 
 To *generate new Fcitx themes* you will also need ImageMagick.
 
