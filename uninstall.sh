@@ -14,7 +14,7 @@ if [[ -f "$BIN_PATH/mekashiya-set" ]]; then
 fi
 
 # Clean up the hooks
-UPDATE_COMMAND="$BIN_PATH/mekashiya-set \$1"
+UPDATE_COMMAND="$BIN_PATH/mekashiya-set \"\$1\""
 LINE=$(grep -n "$UPDATE_COMMAND" "$THEME_HOOK" 2> /dev/null | cut -d: -f1)
 if [[ ! -z $LINE ]]; then
   sed -i "${LINE}d" "$THEME_HOOK"
