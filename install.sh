@@ -3,8 +3,9 @@
 source ./include.sh
 
 # Set up the paths
-mkdir -p "$FCITX_THEMES_PATH"
 mkdir -p "$BIN_PATH"
+mkdir -p "$FCITX_THEMES_PATH"
+mkdir -p "$(dirname $THEME_HOOK)"
 
 # Copy over the themes and control script
 cp "bin/mekashiya-set" "$BIN_PATH"
@@ -12,7 +13,6 @@ cp -r themes/* "$FCITX_THEMES_PATH/"
 
 # Make sure the theme-set hook file exists
 if [[ ! -f "$THEME_HOOK" ]]; then
-  mkdir -p "$(dirname $THEME_HOOK)"
   echo "#!/bin/bash" >> "$THEME_HOOK"
 fi
 
