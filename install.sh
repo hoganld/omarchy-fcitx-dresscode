@@ -1,31 +1,18 @@
 #!/bin/bash
 
-MEKASHIYA_PATH="${MEKASHIYA_ROOT:-$HOME/.local/share/mekashiya}"
-FCITX_THEMES_PATH="${FCITX_THEMES_ROOT:-$HOME/.local/share/fcitx5/themes}"
-BIN_PATH="${LOCAL_BIN:-$HOME/.local/bin}"
-THEME_HOOK="$HOME/.config/omarchy/hooks/theme-set"
+source ./include.sh
 
 # Set up the paths
-mkdir -p "$MEKASHIYA_PATH"
 mkdir -p "$FCITX_THEMES_PATH"
 mkdir -p "$BIN_PATH"
 
 # Copy over the themes and control script
-cp -r "bin" "$MEKASHIYA_PATH"
-cp -r "themes" "$MEKASHIYA_PATH"
-
-# Link up the control scripts in ~/.local/bin
-ln -nsf "$MEKASHIYA_PATH/bin/mekashiya-set" "$BIN_PATH/mekashiya-set"
-
-# Link the themes where Fcitx will look for them
-cd "$MEKASHIYA_PATH/themes"
-for file in *; do
-  ln -nsf "$MEKASHIYA_PATH/themes/$file" "$FCITX_THEMES_PATH/$file"
-done
-cd - > /dev/null
+cp "bin/mekashiya-set" "$BIN_PATH"
+cp -r themes/* "$FCITX_THEMES_PATH/"
 
 # Make sure the theme-set hook file exists
 if [[ ! -f "$THEME_HOOK" ]]; then
+  mkdir -p "$(dirname $THEME_HOOK)"
   echo "#!/bin/bash" >> "$THEME_HOOK"
 fi
 

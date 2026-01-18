@@ -1,17 +1,18 @@
 #!/bin/bash
 
-MEKASHIYA_PATH="${MEKASHIYA_ROOT:-$HOME/.local/share/mekashiya}"
-FCITX_THEMES_PATH="${FCITX_THEMES_ROOT:-$HOME/.local/share/fcitx5/themes}"
-BIN_PATH="${LOCAL_BIN:-$HOME/.local/bin}"
-THEME_HOOK="$HOME/.config/omarchy/hooks/theme-set"
+source ./include.sh
 
 # Undo the configuration
-./bin/mekashiya-set "default"
+./bin/mekashiya-set "default" > /dev/null 2>&1
 
-# Unlink the control scripts
-if [[ -f "$BIN_PATH/mekashiya-set" ]]; then
-  unlink "$BIN_PATH/mekashiya-set"
-fi
+# Remove the control script
+rm "$BIN_PATH/mekashiya-set" > /dev/null 2>&1
+
+# Remove the theme files
+for themepath in themes/*; do
+  themename="$(basename $themepath)"
+  rm -rf "$FCITX_THEMES_PATH/$themename"
+done
 
 # Clean up the hooks
 UPDATE_COMMAND="$BIN_PATH/mekashiya-set \"\$1\""
@@ -21,15 +22,12 @@ if [[ ! -z $LINE ]]; then
 fi
 
 # Unlink the theme files
-if [[ -d "$MEKASHIYA_PATH/themes" ]]; then
-  cd "$MEKASHIYA_PATH/themes"
-  for file in *; do
-    unlink "$FCITX_THEMES_PATH/$file"
-  done
-  cd - >/dev/null
-fi
-
-# Destroy the evidence
-rm -rf "$MEKASHIYA_PATH"
+# if [[ -d "$MEKASHIYA_PATH/themes" ]]; then
+#   cd "$MEKASHIYA_PATH/themes"
+#   for file in *; do
+#     unlink "$FCITX_THEMES_PATH/$file"
+#   done
+#   cd - >/dev/null
+# fi
 
 echo "Successfully uninstalled the Omarchy Fcitx themes."
