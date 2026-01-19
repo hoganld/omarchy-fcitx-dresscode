@@ -1,8 +1,9 @@
-# Omarchy Fcitx Themes
+# Omarchy Fcitx Theme Generator
 
 I love [Omarchy](https://omarchy.org). And I need [Fcitx](https://fcitx-im.org) every time I want to type in Japanese.
 
 I wish they would play nicely together.
+
 
 ## What is the problem here?
 
@@ -12,25 +13,34 @@ Fcitx works better than it looks. Left to its own devices, its appearance is not
 
 This project is my attempt to dress up Fcitx to the point that it can be invited to the Omarchy party.
 
+
 ## What's in the box?
 
-1. A set of color themes for Fcitx to coordinate with each of the default themes that ship with Omarchy.
+1. A generator script and set of templates to easily create new Fcitx5 themes
 
-2. One control script to update the Fcitx theme, integrated into the Omarchy theme switching machinery via the `theme-set` hook.
+2. A set of Fcitx5 color themes that match the default themes that ship with Omarchy
 
-3. A script to install the themes and wire up the Omarchy integration.
+3. A control script to integrate with Omarchy's `theme-set` hook
 
-4. A script to uninstall everything.
+4. Scripts to install the themes, wire up the Omarchy hook integration
 
-5. A generator script and a set of templates to facilitate the creation of new Fcitx themes, so you can add your own themes, and so I can keep up as DHH accepts new themes into Omarchy.
+5. A script to uninstall everthing
+
 
 ## Installation
 
-Simply run "install.sh".
+If you just want to install all the themes and plug into Omarchy's `theme-set` hook, simply run "install.sh".
+
+
+### Installation Details
 
 By default, the themes are installed into `~/.local/share/fcitx5/themes`, which is where Fcitx expects them by default. If you have somehow configured a different Fcitx theme directory (I do not know how to do it, but it may well be possible), you will need to set the `FCITX_THEMES_PATH` environment variable before running `install.sh`.
 
+
+### Hook Integration Details
+
 The Fcitx theme is hotswapped by the `omarchy-theme-set-fcitx5` script, which is called from Omarchy's `theme-set` hook (`~/.config/omarchy/hooks/theme-set`). The installer will attempt to patch the hook automatically, but if it fails, you will need to patch it manually. Inspect `install.sh` for the code to patch in `~/.config/omarchy/hooks/theme-set`. It's a one-liner. The `omarchy-theme-set-fcitx5` script will be installed to `~/.local/bin` by default. To put it elsewhere, set the `LOCAL_BIN` environment variable before running `install.sh`.
+
 
 ## Usage
 
