@@ -1,10 +1,4 @@
-# Mekashiya
-
-> めかし屋; 粧し屋
->
-> *Noun:* fashionable person; dandy; flashy dresser; fop
->
-> -- [*Jim Breen's WWWJDIC*](https://www.edrdg.org/cgi-bin/wwwjdic/wwwjdic)
+# Omarchy Fcitx Themes
 
 I love [Omarchy](https://omarchy.org). And I need [Fcitx](https://fcitx-im.org) every time I want to type in Japanese.
 
