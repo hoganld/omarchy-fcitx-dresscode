@@ -34,9 +34,9 @@ This project is my attempt to dress up Fcitx to the point that it can be invited
 
 Simply run "install.sh".
 
-By default, the themes are installed into `$HOME/.local/share/fcitx5/themes`, which is where Fcitx expects them by default. If you have somehow configured a different Fcitx theme directory (I do not know how to do it, but it may well be possible), you will need to set the `FCITX_THEMES_ROOT` environment variable before running `install.sh`.
+By default, the themes are installed into `~/.local/share/fcitx5/themes`, which is where Fcitx expects them by default. If you have somehow configured a different Fcitx theme directory (I do not know how to do it, but it may well be possible), you will need to set the `FCITX_THEMES_PATH` environment variable before running `install.sh`.
 
-Mekashiya works by calling the `mekashiya-set` script from Omarchy's `theme-set` hook (`$HOME/.config/omarchy/hooks/theme-set`). The installer will attempt to patch the hook automatically, but if it fails, you will need to patch it manually. Inspect `install.sh` for the code to patch in `theme-set`. It's a one-liner. The `mekashiya-set` script will be installed to `$HOME/.local/bin` by default. To put it elsewhere, set the `LOCAL_BIN` environment variable before running `install.sh`.
+The Fcitx theme is hotswapped by the `omarchy-theme-set-fcitx5` script, which is called from Omarchy's `theme-set` hook (`~/.config/omarchy/hooks/theme-set`). The installer will attempt to patch the hook automatically, but if it fails, you will need to patch it manually. Inspect `install.sh` for the code to patch in `~/.config/omarchy/hooks/theme-set`. It's a one-liner. The `omarchy-theme-set-fcitx5` script will be installed to `~/.local/bin` by default. To put it elsewhere, set the `LOCAL_BIN` environment variable before running `install.sh`.
 
 ## Usage
 
