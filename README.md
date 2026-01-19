@@ -53,17 +53,17 @@ Have a look at the existing themes to get a feel for the palette scheme. I came 
 
 Once you've picked your colors, run `generator.sh`. It will prompt you for the name of your theme and the color palette. If it can't find your template or themes directories, it will ask you for those as well.
 
-By default, the generator will install the themes into the `themes` subdirectory of the current directory, because the assumption is that you are running the script from the root of this project and that you want to save it in Git. (In other words, I wrote the generator for myself, for the purpose of updating this project as DHH adds new themes to Omarchy). If you want to generate a new theme directly into your local Mekashiya installation, set the `THEMES_DIR` environment variable.
+The generator will install the themes into the `themes` subdirectory of the current directory, because the assumption is that you are running the script from the root of this project and that you want to save it in Git. (In other words, I wrote the generator for myself, for the purpose of updating this project as DHH adds new themes to Omarchy). If you want to install the new theme directly into your local Fcitx installation, set the `THEMES_DIR` environment variable, or preferably, run `install-theme.sh <theme-name>` after generating the theme.
 
 Similarly, you can set the `TEMPLATE_PATH` environment variable if you are running the script from outside the root of this project.
 
 ## Dependencies
 
-To *run* Mekashiya, all you need is a working Omarchy box with Fcitx installed and configured. (Mekashiya will not install or configure Fcitx for you. It should be installed by Omarchy already.)
+To use these themes, all you need is a working Omarchy box with Fcitx installed and configured. (`install.sh` will not install or configure Fcitx for you. It should be installed by Omarchy already.)
 
-Mekashiya uses `gdbus` to dynamically update the theme, but you should not have to worry about this, since Omarchy installs `gdbus` by default.
+`bin/omarchy-theme-set-fcitx5` uses `gdbus` to dynamically update the theme, but you should not have to worry about this, since Omarchy installs `gdbus` by default.
 
-To *install* Mekashiya, you also need [gum](https://github.com/charmbracelet/gum), but you should have this already, since Omarchy uses it.
+To run the installer, you also need [gum](https://github.com/charmbracelet/gum), but you should have this already, since Omarchy uses it.
 
 To *generate new Fcitx themes* you will also need ImageMagick.
 

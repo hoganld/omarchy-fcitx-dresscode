@@ -7,13 +7,12 @@ mkdir -p "$BIN_PATH"
 mkdir -p "$FCITX_THEMES_PATH"
 mkdir -p "$(dirname $THEME_HOOK)"
 
-# Copy over the themes and control script
+# Copy over the control script
 cp "bin/omarchy-theme-set-fcitx5" "$BIN_PATH"
+
+# Install the themes
 for themepath in themes/*; do
-  themename=$(basename $themepath)
-  mkdir -p "$FCITX_THEMES_PATH/$themename"
-  cp $themepath/theme.conf $FCITX_THEMES_PATH/$themename/
-  cp $themepath/*.png $FCITX_THEMES_PATH/$themename/
+  ./install-theme.sh $(basename $themepath)
 done
 
 # Make sure the theme-set hook file exists
